@@ -1,8 +1,23 @@
 #include <iostream>
 #include "MLL.h"
-
+#include "iomanip"
 using namespace std;
-void start();
+void menu(){
+    cout << "1. Tambah Resep " << endl;
+    cout << "2. Tambah Bahan " << endl;
+    cout << "3. View All" << endl;
+    cout << "4. Cari Resep" << endl;
+    cout << "5. Hapus Resep" << endl;
+    cout << "6. Hapus Durasi dari resep" << endl;
+    cout << "7. Hapus Bahan dari resep" << endl;
+    cout << "8. View Resep berdasarkan kategori" << endl;
+    cout << "9. View Resep Tercepat" << endl;
+    cout << "10. View Resep Terlama" << endl;
+    cout << "10. View Resep dengan jumlah bahan" << endl;
+    cout << "0. exit " << endl;
+    cout << "Masukkan pilihan anda: ";
+}
+
 void createList(ListR &L){
     L.first = nullptr;
     L.last = nullptr;
@@ -13,7 +28,7 @@ bool isEmptyResep(ListR L){
 }
 
 bool isEmptyBahan(adrResep p){
-    return p->firstBahan = nullptr;
+    return p->firstBahan == nullptr;
 }
 
 adrResep createElmResep(string nama, int durasi, string kategori){
@@ -37,7 +52,7 @@ adrBahan createElmBahan(string nama, int jumlah, string deskripsi){
     p->info.namaBahan = nama;
     p->info.jumlahBahan = jumlah;
     p->info.deskripsi = deskripsi;
-    p->next = nullptr
+    p->next = nullptr;
 
     return p;
 }
@@ -64,7 +79,6 @@ void insertBahan(adrResep &p, adrBahan q){
             temp = temp->next;
         }
         temp->next = q;
-        q->prev = temp;
     }
 }
 
@@ -153,7 +167,7 @@ void searchResepByDurasi(ListR L, int durasi){
                 cin >> New;
                 searchResepByDurasi(L, New);
             }else{
-                start();
+                menu();
             }
         }
     }
@@ -323,3 +337,4 @@ void viewResepByJumlahBahan(ListR L, int jumlah){
         p = p->next;
     }
 }
+
