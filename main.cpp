@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
     string nama,namaResep, kategori,deskripsi;
-    int x, durasi, jumlah;
+    int x, durasi, jumlah, cari;
     adrResep p;
     adrBahan q;
     ListR L;
@@ -57,32 +57,32 @@ int main(){
             cout << "3. Cari resep berdasarkan durasi " << endl;
             cout << "9. Kembali ke menu ";
             cout << "\nMasukkan pilihan anda: ";
-            cin >> x;
-            if (x == 1){
+            cin >> cari;
+            if (cari == 1){
                 cout << "Masukkan nama resep yang ingin dicari: ";
                 cin >> nama;
                 p = searchResepByNama(L,nama);
                 printResep(p);
-            }else if(x == 2){
+            }else if(cari == 2){
                 cout << "Masukkan nama bahan yang ada pada resep yang ingin dicari: ";
                 cin >> nama;
                 searchResepByBahan(L, nama);
-            }else if (x == 3){
-                cout << "Masukkan durasi maximal pada resep yang anda ingin cari: ";
+            }else if (cari == 3){
+                cout << "Masukkan durasi maximal pada resep yang ingin dicari (menit): ";
                 cin >> durasi;
                 searchResepByDurasi(L, durasi);
-            }else if (x == 9){
+            }else if (cari == 9){
                     menu();
             }
-        }else if (x == 5){
+        } else if (x == 5){
             cout << "Masukkan nama resep yang ingin dihapus: ";
             cin >> nama;
             deleteResep(L, nama);
-        }else if (x == 6){
+        } else if (x == 6){
             cout << "Masukkan nama resep yang durasi nya ingin dihapus: ";
             cin >> nama;
             deleteDurasiFromResep(L, nama);
-        }else if (x == 7){
+        } else if (x == 7){
             cout << "Masukkan nama resep: ";
             cin >> namaResep;
             p = searchResepByNama(L, namaResep);
@@ -93,28 +93,28 @@ int main(){
                 cout << "Resep " << namaResep << " tidak memiliki bahan!" << endl;
                 }else{
                     printResep(p);
-                    cout << "\n Masukkan nama bahan yang ingin dihapus: ";
+                    cout << "\nMasukkan nama bahan yang ingin dihapus: ";
                     cin >> nama;
                     deleteBahanFromResep(p,nama);
                 }
             }
-        }else if (x == 8){
-            cout << "Pilih kategori yang ingin dilihat:" << endl;
-            cout << "1. Appetizer" << endl;
-            cout << "2. Main Course" << endl;
-            cout << "3. Dessert " << endl;
-            cout << "4. Snack " << endl;
-            cout << "Masukkan pilihan anda(1-4): ";
-            cin >> x;
-            kategori = pilihKategori(x);
-            viewResepByCategory(L, kategori);
-        }else if (x == 9){
+        } else if (x == 8){
+                cout << "Pilih kategori yang ingin dilihat:" << endl;
+                cout << "1. Appetizer" << endl;
+                cout << "2. Main Course" << endl;
+                cout << "3. Dessert " << endl;
+                cout << "4. Snack " << endl;
+                cout << "Masukkan pilihan anda (1-4): ";
+                cin >> x;
+                kategori = pilihKategori(x);
+                viewResepByCategory(L, kategori);
+        } else if (x == 9){
             durasiMinMax(L);
-        }else if (x == 10){
+        } else if (x == 10){
             cout << "Masukkan jumlah bahan dari resep: ";
             cin >> jumlah;
             viewResepByJumlahBahan(L,jumlah);
-        }else{
+        } else{
             cout << "Masukkan nilai yang valid (1-10): ";
             menu();
         }
@@ -127,4 +127,3 @@ int main(){
         showPenutup();
     }
 }
-
