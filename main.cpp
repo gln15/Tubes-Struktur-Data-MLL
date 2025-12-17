@@ -15,6 +15,7 @@ int main(){
     menu();
     cin >> x;
     while (x != 0){
+        system("cls");
         if (x == 1){
             cout << "Masukkan nama resep: ";
             cin >> nama;
@@ -114,11 +115,37 @@ int main(){
             cout << "Masukkan jumlah bahan dari resep: ";
             cin >> jumlah;
             viewResepByJumlahBahan(L,jumlah);
+        } else if (x == 11){
+            cout << "Masukkan nama resep yang durasinya ingin diganti: ";
+            cin >> nama;
+            p = searchResepByNama(L, nama);
+            if (p == nullptr){
+                 cout << "Resep '" << nama << "' tidak ditemukan!" << endl;
+            }else{
+                cout << "Masukkan durasi baru pada resep ini: ";
+                cin >> durasi;
+                x = p->info.durasiMasak;
+                p->info.durasiMasak = durasi;
+                cout << "-----------------------------------------------------" << endl;
+                cout << "Durasi resep '" << nama << "' berhasil diupdate!" << endl;
+                cout << "Data Lama : " << x << " menit" << endl;
+                cout << "Data Baru : " << durasi << " menit" << endl;
+                cout << "-----------------------------------------------------" << endl;
+            }
+        }else if (x == 12){
+            cout << "Masukkan nama resep yang durasinya ingin diganti: ";
+            cin >> nama;
+            p = searchResepByNama(L, nama);
+            if (p == nullptr){
+                 cout << "Resep '" << namaResep << "' tidak ditemukan!" << endl;
+            }else{
+                updateKategoriResep(L, nama);
+            }
         } else{
             cout << "Masukkan nilai yang valid (1-10): ";
             menu();
         }
-        cout << endl;
+        cout << "\n";
         menu();
         cin >> x;
     }
