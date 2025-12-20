@@ -248,6 +248,7 @@ void deleteDurasiFromResep(ListR &L, string nama){
     }
     p->info.durasiMasak = 0;
     cout << "Durasi masak dari resep " << nama << " berhasil dihapus! (diatur ke 0 menit)" << endl;
+    printResep(p);
 }
 
 void deleteBahanFromResep(adrResep p, string namaBahan){
