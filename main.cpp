@@ -14,6 +14,7 @@ int main(){
     showCover();
     menu();
     cin >> x;
+    cin.ignore();
     while (x != 0){
         system("cls");
         if (x == 1){
@@ -34,6 +35,7 @@ int main(){
                 cout << "Resep berhasil ditambahkan!" << endl;
             }
         }else if (x == 2){
+            showNamaResep(L);
             cout << "Masukkan nama resep ingin ditambah: ";
             cin >> nama;
             p = searchResepByNama(L, nama);
@@ -61,6 +63,7 @@ int main(){
             cin >> cari;
             cin.ignore();
             if (cari == 1){
+                showNamaResep(L);
                 cout << "Masukkan nama resep yang ingin dicari: ";
                 cin >> nama;
                 p = searchResepByNama(L,nama);
@@ -77,14 +80,17 @@ int main(){
                     menu();
             }
         } else if (x == 5){
+            showNamaResep(L);
             cout << "Masukkan nama resep yang ingin dihapus: ";
             cin >> nama;
             deleteResep(L, nama);
         } else if (x == 6){
+            showNamaResep(L);
             cout << "Masukkan nama resep yang durasi nya ingin dihapus: ";
             cin >> nama;
             deleteDurasiFromResep(L, nama);
         } else if (x == 7){
+            showNamaResep(L);
             cout << "Masukkan nama resep: ";
             cin >> namaResep;
             p = searchResepByNama(L, namaResep);
@@ -117,6 +123,7 @@ int main(){
             cin >> jumlah;
             viewResepByJumlahBahan(L,jumlah);
         } else if (x == 11){
+            showNamaResep(L);
             cout << "Masukkan nama resep yang durasinya ingin diganti: ";
             cin >> nama;
             p = searchResepByNama(L, nama);
@@ -135,6 +142,7 @@ int main(){
                 cout << "-----------------------------------------------------" << endl;
             }
         }else if (x == 12){
+            showNamaResep(L);
             cout << "Masukkan nama resep yang durasinya ingin diganti: ";
             cin >> nama;
             p = searchResepByNama(L, nama);
@@ -156,4 +164,3 @@ int main(){
         showPenutup();
     }
 }
-
