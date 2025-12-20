@@ -59,6 +59,7 @@ int main(){
             cout << "9. Kembali ke menu ";
             cout << "\nMasukkan pilihan anda: ";
             cin >> cari;
+            cin.ignore();
             if (cari == 1){
                 cout << "Masukkan nama resep yang ingin dicari: ";
                 cin >> nama;
