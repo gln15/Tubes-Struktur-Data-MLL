@@ -748,3 +748,20 @@ void updateKategoriResep(ListR &L, string namaResep){
         cout << "[SUKSES] Kategori berhasil diubah menjadi: " << kategoriBaru << endl;
     }
 }
+
+void showNamaResep(ListR L){
+    if (isEmptyResep(L)){
+        cout << "Daftar Resep Masih Kosong!" << endl;
+    }else {
+        adrResep p;
+        int i;
+        cout << "\n=== DAFTAR NAMA RESEP ===" << endl;
+        p = L.first;
+        while (p != nullptr){
+            cout << i << ". " << p->info.namaResep << endl;
+            p = p->next;
+            i++;
+        }
+       cout << "=========================" << endl;
+    }
+}
