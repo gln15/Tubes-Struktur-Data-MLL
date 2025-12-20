@@ -61,4 +61,6 @@ void loadDummyData(ListR &L);
 void showCover();
 void showPenutup();
 void updateKategoriResep(ListR &L, string namaResep);
+void showNamaResep(ListR L);
 #endif // MLL_H_INCLUDED
+
