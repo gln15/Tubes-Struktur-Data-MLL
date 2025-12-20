@@ -122,6 +122,7 @@ int main(){
             if (p == nullptr){
                  cout << "Resep '" << nama << "' tidak ditemukan!" << endl;
             }else{
+                printResep(p);
                 cout << "Masukkan durasi baru pada resep ini: ";
                 cin >> durasi;
                 x = p->info.durasiMasak;
@@ -137,7 +138,7 @@ int main(){
             cin >> nama;
             p = searchResepByNama(L, nama);
             if (p == nullptr){
-                 cout << "Resep '" << namaResep << "' tidak ditemukan!" << endl;
+                 cout << "Resep '" << nama << "' tidak ditemukan!" << endl;
             }else{
                 updateKategoriResep(L, nama);
             }
@@ -154,3 +155,4 @@ int main(){
         showPenutup();
     }
 }
+
