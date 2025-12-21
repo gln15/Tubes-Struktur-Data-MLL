@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-    string nama, namaResep, kategori,deskripsi, konfirmasi;
+    string nama,namaResep, kategori,deskripsi;
     int x, durasi, jumlah, cari;
     adrResep p;
     adrBahan q;
@@ -37,10 +37,10 @@ int main(){
         }else if (x == 2){
             showNamaResep(L);
             cout << "Masukkan nama resep ingin ditambah: ";
-            cin >> namaResep;
-            p = searchResepByNama(L, namaResep);
+            cin >> nama;
+            p = searchResepByNama(L, nama);
             if (p == nullptr){
-                cout << "Resep '" << namaResep << "' tidak ditemukan!" << endl;
+                cout << "Resep tidak ditemukan!" << endl;
             }else{
                 cout << "\nMasukkan nama bahan: ";
                 cin >> nama;
@@ -50,7 +50,7 @@ int main(){
                 cin >> deskripsi;
                 q = createElmBahan(nama, jumlah, deskripsi);
                 insertBahan(p,q);
-                cout << "Bahan '" << nama << "' berhasil ditambahkan ke resep '" << namaResep << "'" << endl;
+                cout << "Bahan berhasil ditambahkan!" << endl;
             }
         }else if (x == 3){
             viewAll(L);
@@ -133,7 +133,7 @@ int main(){
                 printResep(p);
                 cout << "Masukkan durasi baru pada resep ini: ";
                 cin >> durasi;
-                cout << "Apakah anda yakin ingin mengupdate durasi resep '"<< nama << "'? (y/n): ";
+                cout << "Apakah anda yakin ingin mengupdate kategori resep '" << namaResep << "'? (y/n): ";
                 cin >> konfirmasi;
                 if(konfirmasi == "y" || konfirmasi == "Y"){
                     x = p->info.durasiMasak;
@@ -143,14 +143,12 @@ int main(){
                     cout << "Data Lama : " << x << " menit" << endl;
                     cout << "Data Baru : " << durasi << " menit" << endl;
                     cout << "-----------------------------------------------------" << endl;
-                } else {
-                    cout << "Durasi tidak jadi diupdate" << endl;
+                }else{
+                    cout << "Update durasi dibatalkan!" << endl;
                 }
-
-            }
         }else if (x == 12){
             showNamaResep(L);
-            cout << "Masukkan nama resep yang kategorinya ingin diganti: ";
+            cout << "Masukkan nama resep yang durasinya ingin diganti: ";
             cin >> nama;
             p = searchResepByNama(L, nama);
             if (p == nullptr){
