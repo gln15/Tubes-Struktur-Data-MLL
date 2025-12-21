@@ -133,7 +133,7 @@ int main(){
                 printResep(p);
                 cout << "Masukkan durasi baru pada resep ini: ";
                 cin >> durasi;
-                cout << "Apakah anda yakin ingin mengupdate kategori resep '" << namaResep << "'? (y/n): ";
+                cout << "Apakah anda yakin ingin mengupdate durasi resep '" << nama << "'? (y/n): ";
                 cin >> konfirmasi;
                 if(konfirmasi == "y" || konfirmasi == "Y"){
                     x = p->info.durasiMasak;
