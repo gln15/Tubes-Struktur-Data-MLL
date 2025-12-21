@@ -740,40 +740,40 @@ void updateKategoriResep(ListR &L, string namaResep){
     string kategoriLama, kategoriBaru, konfirmasi;
     int x;
     p = searchResepByNama(L, namaResep);
+    if (p != nullptr){
+        kategoriLama = p->info.kategori;
+        cout << "-------------------------------------------" << endl;
+        cout << "Kategori Saat Ini : " << kategoriLama << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "Pilih Kategori Baru (Selain " << kategoriLama << "):" << endl;
 
-    kategoriLama = p->info.kategori;
-    cout << "-------------------------------------------" << endl;
-    cout << "Kategori Saat Ini : " << kategoriLama << endl;
-    cout << "-------------------------------------------" << endl;
-    cout << "Pilih Kategori Baru (Selain " << kategoriLama << "):" << endl;
-
-    if (kategoriLama != "Appetizer"){
-        cout << "1. Appetizer" << endl;
-    }
-    if (kategoriLama != "Main_Course"){
-        cout << "2. Main Course" << endl;
-    }
-    if (kategoriLama != "Dessert"){
-        cout << "3. Dessert" << endl;
-    }
-    if (kategoriLama != "Snack"){
-        cout << "4. Snack" << endl;
-    }
-    cout << "Masukkan pilihan anda (angka): ";
-    cin >> x;
-    cout << "Apakah anda yakin ingin mengupdate kategori resep '" << namaResep << "'? (y/n): ";
-    cin >> konfirmasi;
-    if(konfirmasi == "y" || konfirmasi == "Y"){
-        kategoriBaru = pilihKategori(x);
-        if (kategoriBaru == kategoriLama || x < 1 || x > 4) {
-            cout << "[GAGAL] Pilihan tidak valid atau sama dengan kategori lama!" << endl;
-        } else {
-            // UPDATE DATA DI SINI
-            p->info.kategori = kategoriBaru;
-            cout << "[SUKSES] Kategori berhasil diubah menjadi: " << kategoriBaru << endl;
+        if (kategoriLama != "Appetizer"){
+            cout << "1. Appetizer" << endl;
         }
-    } else {
-        cout << "Kategori tidak jadi diupdate" << endl;
+        if (kategoriLama != "Main_Course"){
+            cout << "2. Main Course" << endl;
+        }
+        if (kategoriLama != "Dessert"){
+            cout << "3. Dessert" << endl;
+        }
+        if (kategoriLama != "Snack"){
+            cout << "4. Snack" << endl;
+        }
+        cout << "Masukkan pilihan anda (angka): ";
+        cin >> x;
+        cout << "Apakah anda yakin ingin mengupdate kategori resep '" << namaResep << "'? (y/n): ";
+        cin >> konfirmasi;
+        if(konfirmasi == "y" || konfirmasi == "Y"){
+            kategoriBaru = pilihKategori(x);
+            if (kategoriBaru == kategoriLama || x < 1 || x > 4) {
+                cout << "[GAGAL] Pilihan tidak valid atau sama dengan kategori lama!" << endl;
+            } else {
+                p->info.kategori = kategoriBaru;
+                cout << "[SUKSES] Kategori berhasil diubah menjadi: " << kategoriBaru << endl;
+            }
+        } else {
+            cout << "Update kategori dibatalkan!" << endl;
+        }
     }
 }
 
