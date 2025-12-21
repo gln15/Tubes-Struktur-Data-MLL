@@ -223,29 +223,28 @@ void deleteResep(ListR &L, string nama){
 
     cout << "Apakah anda yakin ingin menghapus resep '" << nama << "'? (y/n): ";
     cin >> konfirmasi;
-    if(konfirmasi == "n" || konfirmasi == "N"){
-        cout << "Penghapusan resep dibatalkan" << endl;
-        return;
-    }
-
-    if(p == L.first && p ==L.last){
+    if(konfirmasi == "y" || konfirmasi == "Y"){
+        if(p == L.first && p ==L.last){
         L.first = nullptr;
         L.last = nullptr;
-    } else if(p == L.first){
-        L.first = p->next;
-        if(L.first != nullptr){
-            L.first->prev = nullptr;
-        }
-    } else if (p == L.last){
-        L.last = p->prev;
-        if(L.last != nullptr){
+        } else if(p == L.first){
+            L.first = p->next;
+            if(L.first != nullptr){
+                L.first->prev = nullptr;
+            }
+        } else if (p == L.last){
+            L.last = p->prev;
+            if(L.last != nullptr){
             L.last->next = nullptr;
+            }
+        } else {
+            p->prev->next = p->next;
+            p->next->prev = p->prev;
         }
+        cout << "Resep '" << nama << "' telah dihapus dari daftar!" << endl;
     } else {
-        p->prev->next = p->next;
-        p->next->prev = p->prev;
+        cout << "Penghapusan resep dibatalkan" << endl;
     }
-    cout << "Resep '" << nama << "' telah dihapus dari daftar!" << endl;
 }
 
 void deleteDurasiFromResep(ListR &L, string nama){
@@ -259,14 +258,13 @@ void deleteDurasiFromResep(ListR &L, string nama){
 
     cout << "Apakah anda yakin ingin menghapus durasi masak resep '" << nama << "'? (y/n): ";
     cin >> konfirmasi;
-    if(konfirmasi == "n" || konfirmasi == "N"){
+    if(konfirmasi == "y" || konfirmasi == "Y"){
+        p->info.durasiMasak = 0;
+        cout << "Durasi masak dari resep '" << nama << "' telah dihapus!" << endl;
+        printResep(p);
+    } else {
         cout << "Penghapusan durasi dibatalkan" << endl;
-        return;
     }
-
-    p->info.durasiMasak = 0;
-    cout << "Durasi masak dari resep '" << nama << "' telah dihapus!" << endl;
-    printResep(p);
 }
 
 void deleteBahanFromResep(adrResep p, string namaBahan){
@@ -290,18 +288,17 @@ void deleteBahanFromResep(adrResep p, string namaBahan){
 
     cout << "Apakah anda yakin ingin menghapus bahan '"<< namaBahan << "'? (y/n): ";
     cin >> konfirmasi;
-    if(konfirmasi == "n" || konfirmasi == "N"){
-        cout << "Penghapusan bahan dibatalkan" << endl;
-        return;
-    }
-
-    if(prec == nullptr){
-        p->firstBahan = q->next;
+    if(konfirmasi == "y" || konfirmasi == "Y"){
+        if(prec == nullptr){
+            p->firstBahan = q->next;
+        } else {
+            prec->next = q->next;
+        }
+        q->next = nullptr;
+        cout << "Bahan '" << namaBahan << "' berhasil dihapus!" << endl;
     } else {
-        prec->next = q->next;
+        cout << "Penghapusan bahan dibatalkan" << endl;
     }
-    q->next = nullptr;
-    cout << "Bahan '" << namaBahan << "' berhasil dihapus!" << endl;
 }
 
 int countResep(ListR L){
@@ -766,18 +763,17 @@ void updateKategoriResep(ListR &L, string namaResep){
     cin >> x;
     cout << "Apakah anda yakin ingin mengupdate kategori resep '" << namaResep << "'? (y/n): ";
     cin >> konfirmasi;
-    if(konfirmasi == "n" || konfirmasi == "Y"){
-        cout << "Kategori tidak jadi diupdate" << endl;
-        return;
-    }
-
-    kategoriBaru = pilihKategori(x);
-    if (kategoriBaru == kategoriLama || x < 1 || x > 4) {
-        cout << "[GAGAL] Pilihan tidak valid atau sama dengan kategori lama!" << endl;
+    if(konfirmasi == "y" || konfirmasi == "Y"){
+        kategoriBaru = pilihKategori(x);
+        if (kategoriBaru == kategoriLama || x < 1 || x > 4) {
+            cout << "[GAGAL] Pilihan tidak valid atau sama dengan kategori lama!" << endl;
+        } else {
+            // UPDATE DATA DI SINI
+            p->info.kategori = kategoriBaru;
+            cout << "[SUKSES] Kategori berhasil diubah menjadi: " << kategoriBaru << endl;
+        }
     } else {
-        // UPDATE DATA DI SINI
-        p->info.kategori = kategoriBaru;
-        cout << "[SUKSES] Kategori berhasil diubah menjadi: " << kategoriBaru << endl;
+        cout << "Kategori tidak jadi diupdate" << endl;
     }
 }
 
