@@ -3,19 +3,19 @@
 #include "iomanip"
 using namespace std;
 void menu(){
-    cout << "1. Tambah Resep " << endl;
-    cout << "2. Tambah Bahan " << endl;
-    cout << "3. View All" << endl;
-    cout << "4. Cari Resep" << endl;
-    cout << "5. Hapus Resep" << endl;
-    cout << "6. Hapus Durasi Dari Resep" << endl;
-    cout << "7. Hapus Bahan Dari Resep" << endl;
-    cout << "8. View Resep Berdasarkan Kategori" << endl;
-    cout << "9. View Resep Tercepat dan Terlama" << endl;
+    cout << "1.  Tambah Resep " << endl;
+    cout << "2.  Tambah Bahan " << endl;
+    cout << "3.  View All" << endl;
+    cout << "4.  Cari Resep" << endl;
+    cout << "5.  Hapus Resep" << endl;
+    cout << "6.  Hapus Durasi Dari Resep" << endl;
+    cout << "7.  Hapus Bahan Dari Resep" << endl;
+    cout << "8.  View Resep Berdasarkan Kategori" << endl;
+    cout << "9.  View Resep Tercepat dan Terlama" << endl;
     cout << "10. View Resep Dengan Jumlah Bahan" << endl;
     cout << "11. Update Durasi Resep" << endl;
     cout << "12. Update Kategori Resep" << endl;
-    cout << "0. exit " << endl;
+    cout << "0.  exit " << endl;
     cout << "\nMasukkan pilihan anda: ";
 }
 
@@ -129,7 +129,7 @@ void viewAll(ListR L){
             printResep(p);
             p = p->next;
         }
-        cout << "\nTotal Resep: " << countResep(L);
+        cout << "\nTOTAL RESEP: " << countResep(L);
     }
 }
 
@@ -214,11 +214,20 @@ void searchResepByBahan(ListR L, string bahan){
 
 void deleteResep(ListR &L, string nama){
     adrResep p;
+    string konfirmasi;
     p = searchResepByNama(L, nama);
     if(p == nullptr){
         cout << "Resep '" << nama << "' tidak ditemukan!" << endl;
         return;
     }
+
+    cout << "Apakah anda yakin ingin menghapus resep '" << nama << "'? (y/n): ";
+    cin >> konfirmasi;
+    if(konfirmasi == "n" || konfirmasi == "N"){
+        cout << "Penghapusan resep dibatalkan" << endl;
+        return;
+    }
+
     if(p == L.first && p ==L.last){
         L.first = nullptr;
         L.last = nullptr;
@@ -236,48 +245,63 @@ void deleteResep(ListR &L, string nama){
         p->prev->next = p->next;
         p->next->prev = p->prev;
     }
-    cout << "Resep '" << nama << "' berhasil dihapus dari daftar!" << endl;
+    cout << "Resep '" << nama << "' telah dihapus dari daftar!" << endl;
 }
 
 void deleteDurasiFromResep(ListR &L, string nama){
     adrResep p;
+    string konfirmasi;
     p = searchResepByNama(L, nama);
     if(p == nullptr){
         cout << "Resep '" << nama << "' tidak ditemukan!" << endl;
         return;
     }
+
+    cout << "Apakah anda yakin ingin menghapus durasi masak resep '" << nama << "'? (y/n): ";
+    cin >> konfirmasi;
+    if(konfirmasi == "n" || konfirmasi == "N"){
+        cout << "Penghapusan durasi dibatalkan" << endl;
+        return;
+    }
+
     p->info.durasiMasak = 0;
-    cout << "Durasi masak dari resep " << nama << " berhasil dihapus! (diatur ke 0 menit)" << endl;
+    cout << "Durasi masak dari resep '" << nama << "' telah dihapus!" << endl;
     printResep(p);
 }
 
 void deleteBahanFromResep(adrResep p, string namaBahan){
     adrBahan q, prec;
-    bool found;
+    string konfirmasi;
+    if(p == nullptr){
+        cout << "Resep tidak valid!" << endl;
+        return;
+    }
+
     q = p->firstBahan;
     prec = nullptr;
-    found = false;
-
-    while (q != nullptr && !found){
-        if (q->info.namaBahan == namaBahan){
-            found = true;
-        }else {
-            prec = q;
-            q = q->next;
-        }
+    while(q != nullptr && q->info.namaBahan != namaBahan){
+        prec = q;
+        q = q->next;
     }
-
-    if(found){
-        if(prec == nullptr){
-            p->firstBahan = q->next;
-        }else {
-            prec->next = q->next;
-        }
-        q->next = nullptr;
-        cout << "Bahan '" << namaBahan << "' berhasil dihapus!" << endl;
-    }else {
+     if(q == nullptr){
         cout << "Bahan '" << namaBahan << "' tidak ditemukan pada resep ini!" << endl;
+        return;
     }
+
+    cout << "Apakah anda yakin ingin menghapus bahan '"<< namaBahan << "'? (y/n): ";
+    cin >> konfirmasi;
+    if(konfirmasi == "n" || konfirmasi == "N"){
+        cout << "Penghapusan bahan dibatalkan" << endl;
+        return;
+    }
+
+    if(prec == nullptr){
+        p->firstBahan = q->next;
+    } else {
+        prec->next = q->next;
+    }
+    q->next = nullptr;
+    cout << "Bahan '" << namaBahan << "' berhasil dihapus!" << endl;
 }
 
 int countResep(ListR L){
@@ -338,7 +362,7 @@ void durasiMinMax(ListR L){
             p = p->next;
         }
         if (valid == true){
-            cout << "\n=== Resep tercepat dengan " << Min << " menit ===" << endl;
+            cout << "\n=== RESEP TERCEPAT dengan durasi " << Min << " menit ===" << endl;
             p = L.first;
             while (p != nullptr){
                 if (p->info.durasiMasak == Min){
@@ -347,7 +371,7 @@ void durasiMinMax(ListR L){
                 p = p->next;
             }
 
-            cout << "\n=== Resep terlama dengan " << Max << " menit ===" << endl;
+            cout << "\n=== RESEP TERLAMA dengan durasi " << Max << " menit ===" << endl;
             p = L.first;
             while (p != nullptr){
                 if (p->info.durasiMasak == Max){
@@ -368,7 +392,6 @@ void viewResepByJumlahBahan(ListR L, int jumlah){
     int countBahan;
     p = L.first;
     found = false;
-    cout << "=== Resep Yang Memiliki " << jumlah << " Bahan ===" << endl;
     while(p != nullptr){
         countBahan = 0;
         q = p->firstBahan;
@@ -377,6 +400,9 @@ void viewResepByJumlahBahan(ListR L, int jumlah){
             q = q->next;
         }
         if(countBahan == jumlah){
+            if(!found){
+                cout << "=== Resep Yang Memiliki " << jumlah << " Bahan ===" << endl;
+            }
             printResep(p);
             found = true;
         }
@@ -714,7 +740,7 @@ void showPenutup() {
 
 void updateKategoriResep(ListR &L, string namaResep){
     adrResep p;
-    string kategoriLama, kategoriBaru;
+    string kategoriLama, kategoriBaru, konfirmasi;
     int x;
     p = searchResepByNama(L, namaResep);
 
@@ -736,10 +762,16 @@ void updateKategoriResep(ListR &L, string namaResep){
     if (kategoriLama != "Snack"){
         cout << "4. Snack" << endl;
     }
-    cout << "Masukkan pilihan anda(angka): ";
+    cout << "Masukkan pilihan anda (angka): ";
     cin >> x;
-    kategoriBaru = pilihKategori(x);
+    cout << "Apakah anda yakin ingin mengupdate kategori resep '" << namaResep << "'? (y/n): ";
+    cin >> konfirmasi;
+    if(konfirmasi == "n" || konfirmasi == "Y"){
+        cout << "Kategori tidak jadi diupdate" << endl;
+        return;
+    }
 
+    kategoriBaru = pilihKategori(x);
     if (kategoriBaru == kategoriLama || x < 1 || x > 4) {
         cout << "[GAGAL] Pilihan tidak valid atau sama dengan kategori lama!" << endl;
     } else {
@@ -755,6 +787,7 @@ void showNamaResep(ListR L){
     }else {
         adrResep p;
         int i;
+        i = 1;
         cout << "\n=== DAFTAR NAMA RESEP ===" << endl;
         p = L.first;
         while (p != nullptr){
